@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZzARA Dream Maker - AI-Powered Landing Page Builder</title>
+    <meta name="description" content="Build stunning landing pages in minutes with AI. 3D animations, conversion optimization, and e-commerce integration included.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #6C2BD9;
+            --primary-light: #8B5CF6;
+            --secondary: #06B6D4;
+            --accent: #F59E0B;
+            --dark: #0F0A1A;
+            --dark-card: #1A1128;
+            --text: #E2E8F0;
+            --text-muted: #94A3B8;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(108, 43, 217, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--primary-light);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary-light);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(108, 43, 217, 0.1);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 30px rgba(108, 43, 217, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(108, 43, 217, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SOCIAL PROOF BAR ===== */
+        .social-proof {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-proof-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #F97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            text-align: center;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(108, 43, 217, 0.3);
+        }
+
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon.purple { background: rgba(108, 43, 217, 0.15); }
+        .feature-icon.blue { background: rgba(6, 182, 212, 0.15); }
+        .feature-icon.amber { background: rgba(245, 158, 11, 0.15); }
+        .feature-icon.green { background: rgba(34, 197, 94, 0.15); }
+        .feature-icon.pink { background: rgba(236, 72, 153, 0.15); }
+        .feature-icon.red { background: rgba(239, 68, 68, 0.15); }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(108, 43, 217, 0.05), transparent);
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .step-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 40px rgba(108, 43, 217, 0.2);
+        }
+
+        .pricing-card.featured::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.25rem 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 1rem 0;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .pricing-card .price.free {
+            background: linear-gradient(135deg, var(--secondary), #22D3EE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '\2713';
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(108, 43, 217, 0.3);
+            border-radius: 30px;
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--primary-light); }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .social-proof-stats { gap: 2rem; }
+            .step { flex-direction: column; align-items: center; text-align: center; }
+            .cta-box { padding: 2.5rem 1.5rem; }
+            .hero-cta { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-badge">Powered by AI + 3D Animation</div>
+            <h1>Build Stunning Landing Pages in Minutes</h1>
+            <p>Describe your vision. Dream Maker builds it — complete with 3D animations, conversion optimization, payment integration, and responsive design. No code required.</p>
+            <div class="hero-cta">
+                <a href="#pricing" class="btn btn-primary">Start Building Free &rarr;</a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="social-proof">
+        <div class="social-proof-stats">
+            <div class="stat">
+                <h3>12,000+</h3>
+                <p>Pages Generated</p>
+            </div>
+            <div class="stat">
+                <h3>94%</h3>
+                <p>Avg. Lighthouse Score</p>
+            </div>
+            <div class="stat">
+                <h3>3.2x</h3>
+                <p>Conversion Improvement</p>
+            </div>
+            <div class="stat">
+                <h3>< 30s</h3>
+                <p>AI Generation Time</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <p class="section-label">Features</p>
+        <h2 class="section-title">Everything You Need to Convert</h2>
+        <p class="section-subtitle">AI handles the design, copy, and optimization. You just describe what you want.</p>
+
+        <div class="features-grid">
+            <div class="feature-card animate-in">
+                <div class="feature-icon purple">&#9889;</div>
+                <h3>AI Page Generation</h3>
+                <p>Describe your page in plain English. Our AI selects the optimal template, generates copy, and builds a production-ready page in under 30 seconds.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon blue">&#9670;</div>
+                <h3>3D Animations</h3>
+                <p>Hardware-accelerated Three.js scenes, particle effects, and scroll-triggered animations that captivate visitors without slowing performance.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon amber">&#9733;</div>
+                <h3>Conversion Engine</h3>
+                <p>Built-in A/B testing, heat map analytics, smart CTA placement, and social proof automation to maximize your conversion rates.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon green">&#128176;</div>
+                <h3>E-Commerce Ready</h3>
+                <p>Stripe and PayPal integration, product catalogs, shopping carts, and subscription billing — all set up with one click.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon pink">&#127912;</div>
+                <h3>200+ Templates</h3>
+                <p>Conversion-tested templates for every industry. Landing pages, sales funnels, portfolios, product pages, and more.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon red">&#128202;</div>
+                <h3>Real-Time Analytics</h3>
+                <p>Track visitor behavior, scroll depth, click patterns, and conversions. AI suggests optimizations based on your data.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">Three Steps to Launch</h2>
+        <p class="section-subtitle">From idea to live page in minutes, not weeks.</p>
+
+        <div class="steps">
+            <div class="step animate-in">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Describe Your Vision</h3>
+                    <p>Tell the AI what you need: "A landing page for my fitness coaching business with pricing, testimonials, and a booking form." The AI understands your intent and gets to work.</p>
+                </div>
+            </div>
+            <div class="step animate-in">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Customize & Perfect</h3>
+                    <p>The AI generates your page with copy, layout, animations, and SEO — all editable. Drag, drop, and tweak until it's exactly right. Or let the AI iterate for you.</p>
+                </div>
+            </div>
+            <div class="step animate-in">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Publish & Optimize</h3>
+                    <p>One click to go live. Connect your domain, enable analytics, and let the conversion engine run A/B tests automatically. Watch your metrics climb.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <p class="section-label">Pricing</p>
+        <h2 class="section-title">Start Free, Scale as You Grow</h2>
+        <p class="section-subtitle">No credit card required. Upgrade when you're ready.</p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card animate-in">
+                <h3>Free</h3>
+                <div class="price free">$0<span>/mo</span></div>
+                <ul class="pricing-features">
+                    <li>1 landing page</li>
+                    <li>Basic templates</li>
+                    <li>AI copy generation</li>
+                    <li>Mobile responsive</li>
+                    <li>ZzARA watermark</li>
+                </ul>
+                <a href="#" class="btn btn-secondary" style="width:100%; justify-content:center;">Get Started</a>
+            </div>
+            <div class="pricing-card featured animate-in">
+                <h3>Pro</h3>
+                <div class="price">$29<span>/mo</span></div>
+                <ul class="pricing-features">
+                    <li>10 landing pages</li>
+                    <li>All templates + 3D animations</li>
+                    <li>Custom domain</li>
+                    <li>No watermark</li>
+                    <li>A/B testing</li>
+                    <li>Analytics dashboard</li>
+                </ul>
+                <a href="#" class="btn btn-primary" style="width:100%; justify-content:center;">Start Pro Trial</a>
+            </div>
+            <div class="pricing-card animate-in">
+                <h3>Business</h3>
+                <div class="price">$79<span>/mo</span></div>
+                <ul class="pricing-features">
+                    <li>Unlimited pages</li>
+                    <li>E-commerce integration</li>
+                    <li>Advanced analytics</li>
+                    <li>Priority support</li>
+                    <li>Team collaboration</li>
+                    <li>API access</li>
+                </ul>
+                <a href="#" class="btn btn-secondary" style="width:100%; justify-content:center;">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-box animate-in">
+            <h2>Ready to Dream It?</h2>
+            <p>Join thousands of entrepreneurs who build beautiful, high-converting pages with AI. Your first page is free.</p>
+            <a href="#" class="btn btn-primary">Build Your Dream Page &rarr;</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-brand">ZzARA Dream Maker</div>
+        <p>&copy; 2026 ZzARA Future Tech. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Documentation</a>
+            <a href="#">Support</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Particle Animation
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let w, h;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+
+                // Draw connections
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - dist / 150)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // Scroll Animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garcia Luna Empire - The Blueprint</title>
+    <meta name="description" content="The Garcia Luna Empire Blueprint. AI-powered tools for building generational wealth through technology.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold: #C9A84C;
+            --gold-bright: #E8C547;
+            --dark: #050505;
+            --dark-card: #0F0F0F;
+            --text: #F0ECE3;
+            --text-muted: #7A7468;
+            --border: rgba(201, 168, 76, 0.12);
+        }
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--dark);
+            color: var(--text);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, transparent 60%, rgba(201, 168, 76, 0.03) 100%);
+        }
+        .hero-content {
+            position: relative;
+            max-width: 850px;
+        }
+        .crown {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+        .hero h1 span {
+            display: block;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-top: 0.75rem;
+            font-family: system-ui, sans-serif;
+        }
+        .hero-line {
+            width: 80px;
+            height: 1px;
+            background: var(--gold);
+            margin: 2rem auto;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 3rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: system-ui, sans-serif;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: #000;
+        }
+        .btn-gold:hover { background: var(--gold-bright); transform: translateY(-2px); }
+        .btn-ghost {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--border);
+        }
+
+        /* EMPIRE PILLARS */
+        .pillars {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .pillars-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .pillars-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        .pillars-header p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+        .pillar-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .pillar-card:hover::before { opacity: 1; }
+        .pillar-card:hover { border-color: rgba(201, 168, 76, 0.3); }
+        .pillar-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: rgba(201, 168, 76, 0.2);
+            margin-bottom: 1rem;
+            font-family: system-ui, sans-serif;
+        }
+        .pillar-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+        .pillar-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .pillar-products {
+            list-style: none;
+        }
+        .pillar-products li {
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-family: system-ui, sans-serif;
+        }
+        .pillar-products li::before {
+            content: '\25C6';
+            margin-right: 0.5rem;
+            font-size: 0.6rem;
+        }
+
+        /* VISION */
+        .vision {
+            padding: 6rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .vision-content { max-width: 700px; margin: 0 auto; }
+        .vision h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+        .vision blockquote {
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .vision .attribution {
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-family: system-ui, sans-serif;
+        }
+
+        /* PORTFOLIO */
+        .portfolio {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .portfolio-header h2 { font-size: 2.2rem; font-weight: 400; }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-item {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: all 0.3s;
+        }
+        .product-item:hover { border-color: rgba(201, 168, 76, 0.3); }
+        .product-tier {
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            font-family: system-ui, sans-serif;
+        }
+        .tier-1 { background: rgba(201, 168, 76, 0.15); color: var(--gold); }
+        .tier-2 { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+        .tier-3 { background: rgba(34, 197, 94, 0.15); color: #4ADE80; }
+        .product-info h4 { font-size: 1.1rem; margin-bottom: 0.3rem; font-family: system-ui, sans-serif; }
+        .product-info p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        .cta p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-family: system-ui, sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .pillars-grid { grid-template-columns: 1fr; }
+            .product-item { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="crown">&#9813;</span>
+            <h1>
+                The Empire Blueprint
+                <span>Garcia Luna Ventures</span>
+            </h1>
+            <div class="hero-line"></div>
+            <p>A portfolio of AI-powered products designed to create generational wealth. Each tool solves a billion-dollar problem. Together, they form an empire.</p>
+            <a href="#portfolio" class="btn btn-gold">View the Portfolio</a>
+        </div>
+    </section>
+
+    <section class="pillars">
+        <div class="pillars-header">
+            <h2>Three Pillars of the Empire</h2>
+            <p>Every product sits on one of three strategic pillars, each reinforcing the others.</p>
+        </div>
+
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-number">I</div>
+                <h3>Builder Tools</h3>
+                <p>Products that help people create, launch, and monetize digital businesses. The picks and shovels of the AI gold rush.</p>
+                <ul class="pillar-products">
+                    <li>ZzARA Dream Maker</li>
+                    <li>Dream Builder</li>
+                    <li>DevFlow</li>
+                    <li>Auntie Z</li>
+                </ul>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-number">II</div>
+                <h3>Intelligence Engines</h3>
+                <p>Platforms that turn data into power. Market intelligence, legal intelligence, regulatory intelligence — information asymmetry is the moat.</p>
+                <ul class="pillar-products">
+                    <li>Tesoro (SEO Intelligence)</li>
+                    <li>RegRetro (Regulatory Intel)</li>
+                    <li>SilentBid (Gov. Contract Intel)</li>
+                    <li>JuryBox AI (Legal Intel)</li>
+                </ul>
+            </div>
+            <div class="pillar-card">
+                <div class="pillar-number">III</div>
+                <h3>Mission Products</h3>
+                <p>Technology that serves underserved communities. Immigration tools, whistleblower protection, building safety — profit with purpose.</p>
+                <ul class="pillar-products">
+                    <li>El Camino Secreto (3 Engines)</li>
+                    <li>DeadDrop AI</li>
+                    <li>BuildingWhisper</li>
+                    <li>ShieldAI</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="vision">
+        <div class="vision-content">
+            <h2>The Vision</h2>
+            <blockquote>"Build tools so good that people can't imagine life without them. Then build the next one. Empire isn't one product — it's a portfolio of inevitabilities."</blockquote>
+            <p class="attribution">Garcia Luna Ventures</p>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="portfolio-header">
+            <h2>The Full Portfolio</h2>
+        </div>
+
+        <div class="product-list">
+            <div class="product-item">
+                <span class="product-tier tier-1">Tier 1</span>
+                <div class="product-info">
+                    <h4>ZzARA Dream Maker</h4>
+                    <p>AI landing page builder with 3D animations and conversion optimization.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-1">Tier 1</span>
+                <div class="product-info">
+                    <h4>El Camino Secreto</h4>
+                    <p>3-engine immigration platform: Quien Paga, Ya Estoy Aqui, El Escudo.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-2">Tier 2</span>
+                <div class="product-info">
+                    <h4>Tesoro</h4>
+                    <p>Stealth SEO platform with AI competitor analysis and content optimization.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-2">Tier 2</span>
+                <div class="product-info">
+                    <h4>SilentBid</h4>
+                    <p>Government auction and contract bidding AI with win prediction.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-2">Tier 2</span>
+                <div class="product-info">
+                    <h4>RegRetro</h4>
+                    <p>Real-time regulation monitoring and compliance automation.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-2">Tier 2</span>
+                <div class="product-info">
+                    <h4>BuildingWhisper</h4>
+                    <p>IoT predictive maintenance for commercial buildings.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-3">Tier 3</span>
+                <div class="product-info">
+                    <h4>ClaimSnap</h4>
+                    <p>Insurance damage photo analysis with AI cost estimation.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-3">Tier 3</span>
+                <div class="product-info">
+                    <h4>JuryBox AI</h4>
+                    <p>AI-powered jury selection and trial strategy platform.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-3">Tier 3</span>
+                <div class="product-info">
+                    <h4>MenuMind</h4>
+                    <p>Restaurant menu engineering and dynamic pricing AI.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-3">Tier 3</span>
+                <div class="product-info">
+                    <h4>DeadDrop AI</h4>
+                    <p>Whistleblower anonymization and secure communication platform.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-3">Tier 3</span>
+                <div class="product-info">
+                    <h4>ShieldAI</h4>
+                    <p>AI security auditor with auto-remediation for codebases.</p>
+                </div>
+            </div>
+            <div class="product-item">
+                <span class="product-tier tier-3">Tier 3</span>
+                <div class="product-info">
+                    <h4>Auntie Z</h4>
+                    <p>Personal AI assistant with personality. $129 one-time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>The Empire Starts Now</h2>
+        <p>Every great empire was once just a blueprint. This is yours.</p>
+        <a href="#" class="btn btn-gold">Join the Empire &rarr;</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 GARCIA LUNA VENTURES / ZZARA FUTURE TECH</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZzARA DevFlow - AI Developer Workflow Engine</title>
+    <meta name="description" content="Ship faster with AI-powered developer workflows. Auto-generate code, run CI/CD pipelines, and deploy with confidence.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --accent: #3B82F6;
+            --dark: #0B1120;
+            --dark-card: #111827;
+            --text: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --border: rgba(255,255,255,0.08);
+        }
+        body {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace, system-ui;
+            background: var(--dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(11, 17, 32, 0.8);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-brand {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .nav-brand span { color: var(--text-muted); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 4rem;
+        }
+        .hero-left { flex: 1; }
+        .hero-right { flex: 1; }
+
+        .terminal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        .terminal-badge .dot {
+            width: 6px; height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            font-family: system-ui, sans-serif;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-family: system-ui, sans-serif;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+        }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* TERMINAL */
+        .terminal {
+            background: #0D1117;
+            border: 1px solid #30363D;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: #161B22;
+            border-bottom: 1px solid #30363D;
+        }
+        .terminal-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #FF5F57; }
+        .terminal-dot.yellow { background: #FEBC2E; }
+        .terminal-dot.green { background: #28C840; }
+        .terminal-title {
+            color: #8B949E;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .terminal-body {
+            padding: 1.5rem;
+            line-height: 1.8;
+        }
+        .terminal-body .prompt { color: var(--primary); }
+        .terminal-body .command { color: #E6EDF3; }
+        .terminal-body .output { color: #8B949E; }
+        .terminal-body .success { color: #3FB950; }
+        .terminal-body .info { color: #58A6FF; }
+
+        /* FEATURES */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-label {
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: system-ui, sans-serif;
+        }
+        .section-sub {
+            color: var(--text-muted);
+            max-width: 550px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            font-family: system-ui, sans-serif;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .f-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        .f-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-3px);
+        }
+        .f-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            font-family: system-ui, sans-serif;
+        }
+        .f-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-family: system-ui, sans-serif;
+        }
+        .f-card .tag {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            color: var(--primary);
+        }
+
+        /* STACK */
+        .stack-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(16, 185, 129, 0.03), transparent);
+        }
+        .stack-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .stack-item {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .stack-item:hover { border-color: rgba(16, 185, 129, 0.3); }
+        .stack-item h4 { font-size: 1rem; margin-bottom: 0.25rem; font-family: system-ui, sans-serif; }
+        .stack-item p { color: var(--text-muted); font-size: 0.8rem; font-family: system-ui, sans-serif; }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .cta-box {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--dark-card);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+        }
+        .cta-box h2 { font-size: 2rem; margin-bottom: 1rem; font-family: system-ui, sans-serif; }
+        .cta-box p { color: var(--text-muted); margin-bottom: 2rem; font-family: system-ui, sans-serif; }
+        .cta-cmd {
+            background: #0D1117;
+            border: 1px solid #30363D;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+            color: var(--primary);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        footer p { color: var(--text-muted); font-size: 0.8rem; font-family: system-ui, sans-serif; }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; padding-top: 8rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand">zzara<span>.devflow</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#stack">Stack</a>
+            <a href="#" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-left">
+            <div class="terminal-badge">
+                <span class="dot"></span>
+                Now in public beta
+            </div>
+            <h1>Ship 10x Faster with <span class="gradient">AI DevFlow</span></h1>
+            <p>Your AI-powered development companion. Auto-generate code, orchestrate CI/CD pipelines, write tests, and deploy — all from natural language commands.</p>
+            <a href="#" class="btn btn-primary">Install DevFlow &rarr;</a>
+        </div>
+        <div class="hero-right">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">devflow --interactive</span>
+                </div>
+                <div class="terminal-body">
+                    <div><span class="prompt">$</span> <span class="command">devflow init my-saas-app</span></div>
+                    <div class="success">&#10003; Project scaffolded (Next.js + Prisma + Auth)</div>
+                    <br>
+                    <div><span class="prompt">$</span> <span class="command">devflow generate "user dashboard with analytics"</span></div>
+                    <div class="info">&#9881; Generating 4 components...</div>
+                    <div class="success">&#10003; Dashboard.tsx created</div>
+                    <div class="success">&#10003; AnalyticsChart.tsx created</div>
+                    <div class="success">&#10003; UserStats.tsx created</div>
+                    <div class="success">&#10003; api/analytics.ts created</div>
+                    <br>
+                    <div><span class="prompt">$</span> <span class="command">devflow deploy --preview</span></div>
+                    <div class="success">&#10003; Deployed to preview-abc123.zzara.dev</div>
+                    <div class="output">&#8986; Build: 12s | Tests: passed | Lighthouse: 96</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <p class="section-label">Features</p>
+        <h2 class="section-title">Developer Superpowers</h2>
+        <p class="section-sub">Everything you need to go from idea to production, powered by AI that understands your codebase.</p>
+
+        <div class="features-grid">
+            <div class="f-card">
+                <h3>AI Code Generation</h3>
+                <p>Describe features in plain English. DevFlow generates production-ready components, APIs, and database schemas that match your project's patterns.</p>
+                <span class="tag">Claude AI</span>
+            </div>
+            <div class="f-card">
+                <h3>Smart CI/CD</h3>
+                <p>Auto-configured pipelines that know your stack. Tests run in parallel, builds are optimized, and deployments roll back automatically on failure.</p>
+                <span class="tag">Zero Config</span>
+            </div>
+            <div class="f-card">
+                <h3>Auto Testing</h3>
+                <p>Generate unit tests, integration tests, and E2E tests from your codebase. AI ensures edge cases are covered before you even think of them.</p>
+                <span class="tag">Jest + Playwright</span>
+            </div>
+            <div class="f-card">
+                <h3>Code Review AI</h3>
+                <p>Every PR gets an AI code review: security vulnerabilities, performance issues, and style consistency — all caught before merge.</p>
+                <span class="tag">GitHub Integration</span>
+            </div>
+            <div class="f-card">
+                <h3>Database Migrations</h3>
+                <p>Describe schema changes in natural language. DevFlow generates migration files, validates data integrity, and handles rollbacks.</p>
+                <span class="tag">Prisma + SQL</span>
+            </div>
+            <div class="f-card">
+                <h3>One-Click Deploy</h3>
+                <p>Deploy to Vercel, AWS, or your own infrastructure. Preview environments for every branch. Zero-downtime deployments by default.</p>
+                <span class="tag">Multi-Cloud</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="stack-section" id="stack">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <p class="section-label" style="text-align:center;">Supported Stack</p>
+            <h2 class="section-title" style="text-align:center;">Works With Your Tools</h2>
+            <p class="section-sub" style="text-align:center; margin: 0 auto 3rem;">DevFlow integrates with the frameworks and tools you already use.</p>
+        </div>
+        <div class="stack-grid">
+            <div class="stack-item"><h4>Next.js</h4><p>React Framework</p></div>
+            <div class="stack-item"><h4>React</h4><p>UI Library</p></div>
+            <div class="stack-item"><h4>Node.js</h4><p>Runtime</p></div>
+            <div class="stack-item"><h4>Python</h4><p>Backend / ML</p></div>
+            <div class="stack-item"><h4>PostgreSQL</h4><p>Database</p></div>
+            <div class="stack-item"><h4>Prisma</h4><p>ORM</p></div>
+            <div class="stack-item"><h4>Docker</h4><p>Containers</p></div>
+            <div class="stack-item"><h4>GitHub</h4><p>Version Control</p></div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="cta-box">
+            <h2>Ready to Flow?</h2>
+            <p>Install DevFlow in 30 seconds. Your first project is on us.</p>
+            <div class="cta-cmd">npm install -g @zzara/devflow</div>
+            <a href="#" class="btn btn-primary">Get Started Free &rarr;</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ZzARA Future Tech. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

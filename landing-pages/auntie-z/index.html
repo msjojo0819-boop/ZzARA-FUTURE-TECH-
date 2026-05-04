@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auntie Z - Your Personal AI Assistant | $129</title>
+    <meta name="description" content="Meet Auntie Z: your warm, wise AI assistant who handles your life like family. Calendar, tasks, research, communication - all for $129.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #E11D48;
+            --primary-light: #FB7185;
+            --warm: #F59E0B;
+            --cream: #FFF7ED;
+            --dark: #1C1917;
+            --dark-card: #292524;
+            --text: #FAFAF9;
+            --text-muted: #A8A29E;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--dark);
+            color: var(--text);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(225, 29, 72, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+        }
+        .hero-content { max-width: 750px; }
+
+        .auntie-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--warm));
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 0 60px rgba(225, 29, 72, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary-light), var(--warm));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .price-tag {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), #BE123C);
+            border-radius: 16px;
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: system-ui, sans-serif;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 30px rgba(225, 29, 72, 0.4);
+        }
+        .price-tag small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            font-family: system-ui, sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(225, 29, 72, 0.4); }
+
+        /* WHAT AUNTIE DOES */
+        .what-she-does {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            font-family: system-ui, sans-serif;
+        }
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1rem;
+        }
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 550px;
+            margin: 0 auto 3rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .ability-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        .ability-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(225, 29, 72, 0.3);
+        }
+        .ability-card .emoji {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .ability-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-family: system-ui, sans-serif;
+        }
+        .ability-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* CONVERSATION DEMO */
+        .convo-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(225, 29, 72, 0.03), transparent);
+        }
+        .convo-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        .msg {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+        .msg.user { justify-content: flex-end; }
+        .msg-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .msg-avatar.auntie { background: linear-gradient(135deg, var(--primary), var(--warm)); }
+        .msg-avatar.you { background: rgba(255,255,255,0.1); }
+        .msg-bubble {
+            padding: 0.75rem 1.25rem;
+            border-radius: 16px;
+            max-width: 80%;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .msg.user .msg-bubble {
+            background: rgba(225, 29, 72, 0.15);
+            border: 1px solid rgba(225, 29, 72, 0.2);
+        }
+        .msg:not(.user) .msg-bubble {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 6rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .testimonial-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        .testimonial-card .stars { color: var(--warm); margin-bottom: 1rem; font-size: 1.1rem; }
+        .testimonial-card blockquote {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .testimonial-card .author { font-size: 0.85rem; font-family: system-ui, sans-serif; }
+        .testimonial-card .author span { color: var(--text-muted); }
+
+        /* CTA */
+        .final-cta {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .cta-card {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.15), rgba(245, 158, 11, 0.1));
+            border: 1px solid rgba(225, 29, 72, 0.2);
+            border-radius: 30px;
+        }
+        .cta-card h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .cta-card p { color: var(--text-muted); margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        footer p { color: var(--text-muted); font-size: 0.8rem; font-family: system-ui, sans-serif; }
+
+        @media (max-width: 768px) {
+            .abilities-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="auntie-avatar">Z</div>
+            <h1>Meet <span>Auntie Z</span></h1>
+            <p class="tagline">"The AI that treats your life like family business."</p>
+            <p>She manages your calendar, handles your emails, does your research, reminds you to eat, and tells you the truth when nobody else will. She's not a bot. She's your Auntie.</p>
+            <div class="price-tag">$129 <small>one-time</small></div>
+            <br><br>
+            <a href="#" class="btn btn-primary">Get Auntie Z Now &rarr;</a>
+        </div>
+    </section>
+
+    <section class="what-she-does">
+        <p class="section-label">What She Does</p>
+        <h2 class="section-title">Everything. Like a Real Auntie.</h2>
+        <p class="section-sub">She's part secretary, part therapist, part life coach, part tough-love motivator.</p>
+
+        <div class="abilities-grid">
+            <div class="ability-card">
+                <div class="emoji">&#128197;</div>
+                <h3>Calendar Boss</h3>
+                <p>She manages your schedule, resolves conflicts, and reminds you about things you'd forget. "Mijo, you have that meeting in 20 minutes. Did you eat?"</p>
+            </div>
+            <div class="ability-card">
+                <div class="emoji">&#128231;</div>
+                <h3>Email & Comms</h3>
+                <p>Drafts professional emails, filters spam, and prioritizes what matters. She'll write that difficult email you've been putting off.</p>
+            </div>
+            <div class="ability-card">
+                <div class="emoji">&#128218;</div>
+                <h3>Research Assistant</h3>
+                <p>Need to know something? Auntie digs deep. Competitor analysis, market research, recipe ideas for tonight — she handles it all.</p>
+            </div>
+            <div class="ability-card">
+                <div class="emoji">&#128176;</div>
+                <h3>Budget Tracker</h3>
+                <p>Watches your spending, alerts you on unusual charges, and gives you the "do you really need that?" lecture when appropriate.</p>
+            </div>
+            <div class="ability-card">
+                <div class="emoji">&#128170;</div>
+                <h3>Tough Love Coach</h3>
+                <p>She celebrates your wins AND calls you out when you're slacking. Accountability with love — the Auntie way.</p>
+            </div>
+            <div class="ability-card">
+                <div class="emoji">&#127758;</div>
+                <h3>Bilingual</h3>
+                <p>Fully fluent in English and Spanish. She switches seamlessly based on your preference. "Como quieras, mijo."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="convo-section">
+        <p class="section-label">How She Talks</p>
+        <h2 class="section-title" style="text-align:center; margin-bottom:2rem;">A Real Conversation with Auntie Z</h2>
+
+        <div class="convo-box">
+            <div class="msg user">
+                <div class="msg-bubble">Auntie, I'm overwhelmed. I have 12 things due this week.</div>
+                <div class="msg-avatar you">Y</div>
+            </div>
+            <div class="msg">
+                <div class="msg-avatar auntie">Z</div>
+                <div class="msg-bubble">Okay mijo, breathe. I looked at your list. Three of those things can wait until next week. Two of them you can delegate. That leaves 7 — let's knock out 2 tonight while it's quiet. I already blocked your calendar. What do you want to start with?</div>
+            </div>
+            <div class="msg user">
+                <div class="msg-bubble">The investor email. I've been stressing about it for 3 days.</div>
+                <div class="msg-avatar you">Y</div>
+            </div>
+            <div class="msg">
+                <div class="msg-avatar auntie">Z</div>
+                <div class="msg-bubble">That's why you're stressed — you're carrying it instead of doing it. Let me draft it. I'll keep it confident but not cocky, professional but warm. Give me 30 seconds... Done. Check your drafts. And drink some water.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <p class="section-label">What People Say</p>
+        <h2 class="section-title" style="text-align:center; margin-bottom:3rem;">The Family Reviews</h2>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote>"I haven't missed a deadline since I got Auntie Z. She's like having a chief of staff who actually cares about you."</blockquote>
+                <div class="author">Maria G. <span>- Entrepreneur</span></div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote>"My real auntie is jealous. Auntie Z remembered my mom's birthday before I did AND drafted the card."</blockquote>
+                <div class="author">Carlos R. <span>- Software Engineer</span></div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote>"The tough love feature is real. She told me to stop doom-scrolling and finish my proposal. I needed that."</blockquote>
+                <div class="author">Jessica T. <span>- Freelancer</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="cta-card">
+            <h2>Your Auntie is Waiting</h2>
+            <p>One payment. Lifetime access. No subscriptions.</p>
+            <div class="price-tag" style="margin: 1.5rem 0;">$129 <small>one-time</small></div>
+            <br>
+            <a href="#" class="btn btn-primary">Get Auntie Z &rarr;</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ZzARA Future Tech. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

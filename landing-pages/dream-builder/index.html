@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Builder - AI Sales Page Creator</title>
+    <meta name="description" content="Build high-converting sales pages in minutes with AI. From product launch to empire.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --gold: #D4A843;
+            --gold-light: #F0D68A;
+            --dark: #0A0A0A;
+            --dark-card: #141414;
+            --text: #F5F5F5;
+            --text-muted: #888;
+            --border: rgba(212, 168, 67, 0.15);
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background:
+                radial-gradient(ellipse at 50% 30%, rgba(212, 168, 67, 0.08) 0%, transparent 60%);
+        }
+        .hero-content { max-width: 800px; }
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 strong {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #C49B38);
+            color: #000;
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 168, 67, 0.3); }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--gold);
+        }
+        .btn-outline:hover { background: rgba(212, 168, 67, 0.05); }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+        .section-title strong { font-weight: 700; }
+
+        .feature-row {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+        .feature-row:nth-child(even) { flex-direction: row-reverse; }
+        .feature-text { flex: 1; }
+        .feature-visual {
+            flex: 1;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .feature-text h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .feature-text p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .feature-list {
+            list-style: none;
+        }
+        .feature-list li {
+            padding: 0.4rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .feature-list li::before {
+            content: '\2713';
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        .visual-mockup {
+            width: 100%;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .visual-mockup .mock-bar {
+            height: 8px;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+        .visual-mockup .mock-bar.w80 { width: 80%; background: rgba(212,168,67,0.3); }
+        .visual-mockup .mock-bar.w60 { width: 60%; background: rgba(212,168,67,0.2); }
+        .visual-mockup .mock-bar.w90 { width: 90%; background: rgba(212,168,67,0.25); }
+        .visual-mockup .mock-bar.w40 { width: 40%; background: rgba(212,168,67,0.15); }
+
+        /* RESULTS */
+        .results {
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .results-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        .result h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .result p { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem; }
+
+        /* PRICING */
+        .pricing {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .pricing-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .pricing-card.featured {
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(212, 168, 67, 0.1);
+            position: relative;
+        }
+        .pricing-card.featured::after {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.2rem 0.8rem;
+            background: var(--gold);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 700;
+            border-radius: 50px;
+            letter-spacing: 1px;
+        }
+        .pricing-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        .pricing-card .price span { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; }
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+        .pricing-card ul li {
+            padding: 0.4rem 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .pricing-card ul li::before {
+            content: '\2713';
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        /* CTA */
+        .final-cta {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .final-cta h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        .final-cta h2 strong { font-weight: 700; }
+        .final-cta p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        footer p { color: var(--text-muted); font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .feature-row, .feature-row:nth-child(even) { flex-direction: column; }
+            .results-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">ZzARA Future Tech Presents</p>
+            <h1>Build Sales Pages That <strong>Actually Convert</strong></h1>
+            <p>AI-powered sales page builder designed for entrepreneurs who sell courses, coaching, SaaS, and digital products. Beautiful pages that close deals — built in minutes.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-gold">Start Building &rarr;</a>
+                <a href="#features" class="btn btn-outline">See Features</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="results">
+        <div class="results-grid">
+            <div class="result">
+                <h3>4.7x</h3>
+                <p>Avg. Conversion Lift</p>
+            </div>
+            <div class="result">
+                <h3>< 5m</h3>
+                <p>Page Build Time</p>
+            </div>
+            <div class="result">
+                <h3>$2.1M</h3>
+                <p>Revenue Generated</p>
+            </div>
+            <div class="result">
+                <h3>8,400+</h3>
+                <p>Pages Built</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <p class="section-label">Features</p>
+        <h2 class="section-title">Built for <strong>Closers</strong></h2>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>AI Copy That Sells</h3>
+                <p>Trained on thousands of high-converting sales pages. The AI writes headlines, bullet points, CTAs, and objection-handling copy that sounds like your best salesperson.</p>
+                <ul class="feature-list">
+                    <li>AIDA framework built-in</li>
+                    <li>Objection-handler sections</li>
+                    <li>Urgency/scarcity modules</li>
+                    <li>Social proof integration</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="visual-mockup">
+                    <p>AI-Generated Sales Copy</p>
+                    <div class="mock-bar w90"></div>
+                    <div class="mock-bar w80"></div>
+                    <div class="mock-bar w60"></div>
+                    <div class="mock-bar w90"></div>
+                    <div class="mock-bar w40"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>Conversion-Tested Layouts</h3>
+                <p>Every template is based on real data from pages that generated $100K+. Hero sections, feature grids, pricing tables, FAQ accordions, and sticky CTAs — all pre-optimized.</p>
+                <ul class="feature-list">
+                    <li>50+ proven templates</li>
+                    <li>Mobile-first responsive</li>
+                    <li>Fast loading (< 2s)</li>
+                    <li>SEO-optimized markup</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="visual-mockup">
+                    <p>Template Performance Data</p>
+                    <div class="mock-bar w90"></div>
+                    <div class="mock-bar w80"></div>
+                    <div class="mock-bar w60"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>One-Click Payments</h3>
+                <p>Stripe, PayPal, and Apple Pay integration. Set up checkout in seconds. Support for one-time payments, subscriptions, payment plans, and order bumps.</p>
+                <ul class="feature-list">
+                    <li>Stripe + PayPal + Apple Pay</li>
+                    <li>Order bump & upsell flows</li>
+                    <li>Coupon codes</li>
+                    <li>Revenue dashboard</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="visual-mockup">
+                    <p>Payment Integration</p>
+                    <div class="mock-bar w80"></div>
+                    <div class="mock-bar w60"></div>
+                    <div class="mock-bar w90"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <p class="section-label">Pricing</p>
+        <h2 class="section-title">Invest in <strong>Results</strong></h2>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$19<span>/mo</span></div>
+                <ul>
+                    <li>3 sales pages</li>
+                    <li>AI copy generation</li>
+                    <li>Basic templates</li>
+                    <li>Stripe integration</li>
+                </ul>
+                <a href="#" class="btn btn-outline" style="width:100%;justify-content:center;">Get Started</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Closer</h3>
+                <div class="price">$49<span>/mo</span></div>
+                <ul>
+                    <li>Unlimited pages</li>
+                    <li>All templates</li>
+                    <li>A/B testing</li>
+                    <li>Custom domains</li>
+                    <li>Analytics dashboard</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#" class="btn btn-gold" style="width:100%;justify-content:center;">Start Closing &rarr;</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Empire</h3>
+                <div class="price">$129<span>/mo</span></div>
+                <ul>
+                    <li>Everything in Closer</li>
+                    <li>White-label</li>
+                    <li>API access</li>
+                    <li>Team seats (5)</li>
+                    <li>Funnel builder</li>
+                </ul>
+                <a href="#" class="btn btn-outline" style="width:100%;justify-content:center;">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <h2>Stop Tweaking. <strong>Start Selling.</strong></h2>
+        <p>Your next customer is one page away.</p>
+        <a href="#" class="btn btn-gold">Build Your Sales Page &rarr;</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ZzARA Future Tech. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
